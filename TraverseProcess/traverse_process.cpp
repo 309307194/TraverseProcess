@@ -1,5 +1,5 @@
 //进程查看器
-//write by niwodiy.com
+////write by niwodiy.com
 #include <stdio.h>
 #include <Windows.h>
 #include <stdlib.h>
