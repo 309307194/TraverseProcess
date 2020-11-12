@@ -1,9 +1,25 @@
 //进程查看器
 ////write by niwodiy.com
+
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <stdio.h>
 #include <Windows.h>
 #include <stdlib.h>
 #include <TlHelp32.h>
+
+BOOL CloseProcess(DWORD dwId)
+{
+	BOOL bRet;
+	HANDLE hHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, dwId);
+	if (hHandle != NULL)
+	{
+		bRet = TerminateProcess(hHandle, 0);
+	}
+	CloseHandle(hHandle);
+
+	return bRet;
+}
 
 int main(int argc, char* argv[])
 {
@@ -25,6 +41,11 @@ int main(int argc, char* argv[])
 		bMore = Process32Next(hProcessSnap, &pc);
 	}
 	CloseHandle(hProcessSnap);
+
+	int pid = 0;
+	printf("请输入要关闭的进程id\n");
+	scanf("%d", &pid);
+	CloseProcess(pid);
 
 	return 0;
 }
